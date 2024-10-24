@@ -22,6 +22,10 @@ module.exports = (server, config) => {
       io = socketIo(server);
     }
 
+    if (typeof io.of === 'function') {
+      io = io.of(config.namespace);
+    }
+
     io.on('connection', socket => {
       if (config.authorize) {
         config
